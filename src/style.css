@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+
+  font-family: Arial, sans-serif;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #ffffff,
+      #dbeafe,
+      #d7e3f0,
+      #d5d8db
+    );
+
+  color: #111827;
+}
+
+#app {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-screen {
+  position: relative;
+
+  width: 520px;
+
+  padding: 60px;
+
+  border-radius: 32px;
+
+  text-align: center;
+
+  background:
+    rgba(255,255,255,0.35);
+
+  border:
+    1px solid rgba(255,255,255,0.4);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 0 60px rgba(0,0,0,0.15);
+}
+
+.title {
+  font-size: 64px;
+
+  font-weight: 900;
+
+  margin-bottom: 20px;
+
+  color: #3b82f6;
+
+  margin-top: 40px;
+
+  line-height: 1;
+
+  letter-spacing: -2px;
+
+  white-space: nowrap;
+}
+
+.subtitle {
+  font-size: 36px;
+
+  font-weight: bold;
+
+  color: #475569;
+
+  margin-bottom: 40px;
+}
+
+button {
+  border: none;
+
+  padding: 18px 42px;
+
+  border-radius: 18px;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      45deg,
+      #3b82f6,
+      #06b6d4
+    );
+
+  box-shadow:
+    0 0 30px rgba(59,130,246,0.3);
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.game-screen {
+  text-align: center;
+}
+
+.direction {
+  font-size: 180px;
+
+  font-weight: 900;
+
+  color: #2563eb;
+
+  margin-bottom: 30px;
+
+  animation:
+    pulse 0.8s infinite;
+}
+
+.instruction {
+  font-size: 24px;
+
+  color: #475569;
+}
+
+@keyframes pulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.top-bar {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 0 60px;
+
+  position: absolute;
+
+  top: 40px;
+  left: 0;
+}
+
+.score,
+.timer,
+.lives {
+  font-size: 28px;
+
+  font-weight: bold;
+
+  color: #2563eb;
+}
+
+
+#menu-btn {
+  position: absolute;
+
+  top: 24px;
+  left: 24px;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,0.08);
+
+  color: white;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 0 20px rgba(0,0,0,0.3);
+}
