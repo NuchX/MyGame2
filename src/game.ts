@@ -1,5 +1,3 @@
-let reactionTimes: number[] = []
-
 let gameStartTime = 0
 
 let totalAnswers = 0
@@ -33,7 +31,6 @@ export function showCountdown() {
       "#app"
     )!
 
-  let count = 3
 
     app.innerHTML = `
     <div class="countdown-screen">
@@ -104,8 +101,6 @@ export function showCountdown() {
 
 
 export function startGame() {
-
-  reactionTimes = []
 
   gameStartTime = Date.now()
 
