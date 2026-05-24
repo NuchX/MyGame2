@@ -1,6 +1,6 @@
 import "./style.css"
 
-import { startGame , showCountdown  } from "./game"
+import { showCountdown  } from "./game"
 
 const app =
   document.querySelector<HTMLDivElement>(
