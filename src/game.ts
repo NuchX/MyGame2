@@ -26,7 +26,6 @@ let maxTime = 3
 let timer: number
 
 
-
 export function showCountdown() {
 
   const app =
