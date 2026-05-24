@@ -1,3 +1,11 @@
+let reactionTimes: number[] = []
+
+let gameStartTime = 0
+
+let totalAnswers = 0
+
+let correctAnswers = 0
+
 const directions = [
   "⬅",
   "➡",
@@ -15,17 +23,103 @@ let timeLeft = 3
 
 let maxTime = 3
 
-let timer:
-  number
+let timer: number
+
+
+
+export function showCountdown() {
+
+  const app =
+    document.querySelector<HTMLDivElement>(
+      "#app"
+    )!
+
+  let count = 3
+
+  app.innerHTML = `
+    <div class="countdown-screen">
+
+      <h1 id="count-text">
+        ARE YOU READY?
+      </h1>
+
+    </div>
+  `
+
+  const countText =
+    document.querySelector(
+      "#count-text"
+    ) as HTMLHeadingElement
+
+  function updateText(
+    text: string
+  ) {
+
+    countText.style.opacity = "0"
+
+    countText.style.transform =
+      "scale(0.7)"
+
+    setTimeout(() => {
+
+      countText.textContent = text
+
+      countText.style.opacity = "1"
+
+      countText.style.transform =
+        "scale(1)"
+
+    }, 250)
+  }
+
+  setTimeout(() => {
+
+    updateText("3")
+
+  }, 2500)
+
+  setTimeout(() => {
+
+    updateText("2")
+
+  }, 3500)
+
+  setTimeout(() => {
+
+    updateText("1")
+
+  }, 4500)
+
+  setTimeout(() => {
+
+    updateText("LET'S GO!")
+
+  }, 5500)
+
+  setTimeout(() => {
+
+    startGame()
+
+  }, 6800)
+}
+
 
 export function startGame() {
+
+  reactionTimes = []
+
+  gameStartTime = Date.now()
 
   score = 0
 
   lives = 3
 
+  totalAnswers = 0
+
+  correctAnswers = 0
+
   nextRound()
-  
+
   document.addEventListener(
     "keydown",
     handleKeyPress
@@ -34,17 +128,21 @@ export function startGame() {
 
 function updateDifficulty() {
 
-  if (
-    score >= 50
-  ) {
+  if(score >= 60){
 
-    maxTime = 1
+    maxTime = 1.5
 
-  } else if (
-    score >= 25
-  ) {
+  } else if(score >= 50){
+
+    maxTime = 1.5
+
+  } else if(score >= 40){
 
     maxTime = 2
+
+  } else if(score >= 30){
+
+    maxTime = 2.5
 
   } else {
 
@@ -58,7 +156,7 @@ function nextRound() {
 
   updateDifficulty()
 
-    timeLeft = maxTime
+  timeLeft = maxTime
 
   currentDirection =
     directions[
@@ -73,18 +171,24 @@ function nextRound() {
   timer =
     setInterval(() => {
 
-      timeLeft--
+      timeLeft -= 0.1
 
-      renderGame()
+      const timerElement =
+        document.querySelector(
+          "#timer"
+        ) as HTMLDivElement
 
-      if (
-        timeLeft <= 0
-      ) {
+      timerElement.textContent =
+        timeLeft.toFixed(1)
+
+      if(timeLeft <= 0){
+
+        timeLeft = 0
 
         loseLife()
       }
 
-    }, 1000)
+    }, 100)
 }
 
 function renderGame() {
@@ -104,12 +208,15 @@ function renderGame() {
           ${score}
         </div>
 
-        <div class="lives">
-          ${"❤️".repeat(lives)}
+        <div
+          class="timer"
+          id="timer"
+        >
+          ${timeLeft.toFixed(1)}
         </div>
 
-        <div class="timer">
-          ${timeLeft}
+        <div class="lives">
+          ${"❤️".repeat(lives)}
         </div>
 
       </div>
@@ -117,13 +224,13 @@ function renderGame() {
       <h1 class="direction">
         ${currentDirection}
       </h1>
-      
 
       <p class="instruction">
-        <div class="controls">
-        </div>
         Press the opposite direction
       </p>
+
+      <div class="controls">
+      </div>
 
     </div>
   `
@@ -159,11 +266,15 @@ function handleKeyPress(
     correctKey = "ArrowUp"
   }
 
+  totalAnswers++
+
   if (
     event.code === correctKey
   ) {
 
     score++
+
+    correctAnswers++
 
     nextRound()
 
@@ -189,61 +300,142 @@ function loseLife() {
   }
 }
 
+
 function showGameOver() {
 
   clearInterval(timer)
+
+  const accuracy =
+    totalAnswers > 0
+      ? Math.round(
+          (
+            correctAnswers /
+            totalAnswers
+          ) * 100
+        )
+      : 0
+
+  const survivalTime =
+    (
+      (Date.now() -
+        gameStartTime) /
+      1000
+    ).toFixed(1)
+
+  const bestScore =
+    Math.max(
+      score,
+      Number(
+        localStorage.getItem(
+          "bestScore"
+        ) || 0
+      )
+    )
+
+  localStorage.setItem(
+    "bestScore",
+    bestScore.toString()
+  )
 
   const app =
     document.querySelector<HTMLDivElement>(
       "#app"
     )!
 
-    app.innerHTML = `
+  app.innerHTML = `
     <div class="menu-screen">
 
-        <h1 class="title">
+      <button id="menu-btn">
+        ⟵
+      </button>
+
+      <h1 class="title">
         GAME OVER
-        </h1>
+      </h1>
 
-        <p class="subtitle">
-        Final Score:
-        ${score}
-        </p>
+      <div class="stats-grid">
 
-        <button id="restart-btn">
+        <div class="stat-card">
+
+          <span>
+            SCORE
+          </span>
+
+          <h2>
+            ${score}
+          </h2>
+
+        </div>
+
+        <div class="stat-card">
+
+          <span>
+            BEST
+          </span>
+
+          <h2>
+            ${bestScore}
+          </h2>
+
+        </div>
+
+        <div class="stat-card">
+
+          <span>
+            ACCURACY
+          </span>
+
+          <h2>
+            ${accuracy}%
+          </h2>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>
+            SURVIVAL
+          </span>
+
+          <h2>
+            ${survivalTime}s
+          </h2>
+
+        </div>
+
+      </div>
+
+      <button id="restart-btn">
         PLAY AGAIN
-        </button>
-
-        <button id="menu-btn">
-        ⟵ 
-        </button>
+      </button>
 
     </div>
-    `
+  `
 
-    const restartButton =
+  const restartButton =
     document.querySelector(
-        "#restart-btn"
+      "#restart-btn"
     ) as HTMLButtonElement
 
-    restartButton.addEventListener(
+  restartButton.addEventListener(
     "click",
     () => {
 
-        startGame()
+      showCountdown()
     }
-    )
+  )
 
-    const menuButton =
+  const menuButton =
     document.querySelector(
-        "#menu-btn"
+      "#menu-btn"
     ) as HTMLButtonElement
 
-    menuButton.addEventListener(
+  menuButton.addEventListener(
     "click",
     () => {
 
-        location.reload()
+      location.reload()
     }
-    )
+  )
 }

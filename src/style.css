@@ -172,7 +172,6 @@ button:hover {
 }
 
 .score,
-.timer,
 .lives {
   font-size: 28px;
 
@@ -218,4 +217,116 @@ button:hover {
 
   box-shadow:
     0 0 20px rgba(0,0,0,0.3);
+}
+
+
+.timer {
+
+  font-size: 28px;
+
+  font-weight: bold;
+
+  color: #2563eb;
+
+  min-width: 70px;
+
+  text-align: center;
+}
+
+
+.stats-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 20px;
+
+  width: 100%;
+
+  max-width: 500px;
+
+  margin: 40px 0;
+}
+
+.stat-card {
+
+  background:
+    rgba(255,255,255,0.18);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.25);
+
+  border-radius: 24px;
+
+  padding: 24px;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 10px 30px
+    rgba(0,0,0,0.08);
+
+  text-align: center;
+}
+
+.stat-card span {
+
+  font-size: 14px;
+
+  letter-spacing: 2px;
+
+  color: #64748b;
+}
+
+.stat-card h2 {
+
+  margin-top: 12px;
+
+  font-size: 42px;
+
+  color: #2563eb;
+}
+
+.countdown-screen {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+#count-text {
+  font-size: 120px;
+
+  font-weight: 900;
+
+  color: #2563eb;
+
+  text-shadow:
+    0 0 40px rgba(37,99,235,0.35);
+
+  animation:
+    pop 0.8s ease;
+
+  transition:
+    0.4s ease;
+}
+
+@keyframes pop {
+
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

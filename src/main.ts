@@ -1,6 +1,6 @@
 import "./style.css"
 
-import { startGame } from "./game"
+import { startGame , showCountdown  } from "./game"
 
 const app =
   document.querySelector<HTMLDivElement>(
@@ -33,6 +33,6 @@ const startButton =
 startButton.addEventListener(
   "click",
   () => {
-    startGame()
+    showCountdown()
   }
 )
