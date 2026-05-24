@@ -35,7 +35,7 @@ export function showCountdown() {
 
   let count = 3
 
-  app.innerHTML = `
+    app.innerHTML = `
     <div class="countdown-screen">
 
       <h1 id="count-text">
